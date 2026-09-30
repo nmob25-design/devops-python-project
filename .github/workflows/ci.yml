@@ -16,7 +16,7 @@ jobs:
 
     steps:
 
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -25,10 +25,12 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
 
       - name: Run Tests
-        run: pytest
+        run: |
+          pytest
 
       - name: Login to GHCR
         uses: docker/login-action@v3
@@ -44,5 +46,3 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ghcr.io/${{ github.repository_owner }}/python-devops-app:latest
-
-          
